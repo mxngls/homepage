@@ -1,0 +1,4 @@
+ErrorDocument 401 /err401.htm
+ErrorDocument 403 /err403.htm
+ErrorDocument 404 /err404.htm
+ErrorDocument 500 /err500.htm
