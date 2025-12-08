@@ -20,6 +20,9 @@ PUBLIC_DIR="/home/public"
 # Checkout the latest code
 git --work-tree="$WORK_TREE" --git-dir="$GIT_DIR" checkout -f main
 
+# Initialize and update submodules
+cd "$WORK_TREE" && git --git-dir="$GIT_DIR" --work-tree="$WORK_TREE" submodule update --init --recursive
+
 # Update the hook from the repo (self-update for next run)
 cp "$WORK_TREE/post-receive" "$GIT_DIR/hooks/post-receive"
 
