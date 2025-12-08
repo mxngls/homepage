@@ -30,8 +30,8 @@ cp "$WORK_TREE/post-receive" "$GIT_DIR/hooks/post-receive"
 # Pass the bare repo location since the work tree doesn't have a .git directory
 cd "$WORK_TREE" && ./build.sh _SITE_EXT_GIT_DIR="$GIT_DIR"
 
-# Copy built files to public directory
-cp -r docs/* "$PUBLIC_DIR/"
+# Copy built files to public directory (using . [Glob] to include hidden files)
+cp -r "$WORK_TREE/docs/." "$PUBLIC_DIR/"
 
 # Write deployed commit hash for verification
-git --git-dir="$GIT_DIR" rev-parse HEAD > "$PUBLIC_DIR/.deployed-commit"
+git --git-dir="$GIT_DIR" rev-parse HEAD >"$PUBLIC_DIR/.deployed-commit"
