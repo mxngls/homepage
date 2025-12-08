@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Post-receive hook that runs automatically after GitHub Actions pushes to the
+# bare repository at /home/private/repo.git on our server hosted via
+# NearlyFreeSpeech.net.
+#
+# This script checks out the latest commit to a work tree, runs the build
+# process (ensuring BSD compatibility), and copies the generated files to
+# /home/public where they're served to visitors.
+#
+# The bare repo contains only git metadata, so we need a separate work tree at
+# to actually build the site. This file should be placed at
+# /home/private/repo.git/hooks/post-receive and made executable.
+
+# Define paths
+GIT_DIR="/home/private/repo.git"
+WORK_TREE="/home/private/checked_out_repo"
+PUBLIC_DIR="/home/public"
+
+# Checkout the latest code
+git --work-tree="$WORK_TREE" --git-dir="$GIT_DIR" checkout -f main
+
+# Navigate to work tree and build
+# Pass the bare repo location since the work tree doesn't have a .git directory
+cd "$WORK_TREE" && ./build.sh _SITE_EXT_GIT_DIR="$GIT_DIR"
+
+# Copy built files to public directory
+cp -r docs/* "$PUBLIC_DIR/"

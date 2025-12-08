@@ -1,0 +1,14 @@
+# Misc
+.DS_Store
+
+# pages output dir
+docs/
+
+# drafts
+content/drafts/**
+
+# chache
+.cache/
+
+# Bear output
+compile_commands.json
