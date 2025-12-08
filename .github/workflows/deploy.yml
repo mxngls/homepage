@@ -25,4 +25,19 @@ jobs:
       - name: Deploy via Git push
         run: |
           git remote add nfsn ssh://${{ secrets.NFSN_USER }}@${{ secrets.NFSN_HOST }}/home/private/repo.git
-          git push nfsn --force-if-includes main
+          git push nfsn main
+
+      - name: Verify deployment
+        run: |
+          EXPECTED=$(git rev-parse HEAD)
+          DEPLOYED=$(ssh \
+            -o RequestTTY=no \
+            -o BatchMode=yes \
+            ${{ secrets.NFSN_USER }}@${{ secrets.NFSN_HOST }} \
+            'cat /home/public/.deployed-commit')
+          if [ "$EXPECTED" != "$DEPLOYED" ]; then
+            echo "Deployment verification failed"
+            echo "Expected: $EXPECTED"
+            echo "Deployed: $DEPLOYED"
+            exit 1
+          fi
