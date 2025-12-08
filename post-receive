@@ -20,6 +20,9 @@ PUBLIC_DIR="/home/public"
 # Checkout the latest code
 git --work-tree="$WORK_TREE" --git-dir="$GIT_DIR" checkout -f main
 
+# Update the hook from the repo (self-update for next run)
+cp "$WORK_TREE/post-receive" "$GIT_DIR/hooks/post-receive"
+
 # Navigate to work tree and build
 # Pass the bare repo location since the work tree doesn't have a .git directory
 cd "$WORK_TREE" && ./build.sh _SITE_EXT_GIT_DIR="$GIT_DIR"
