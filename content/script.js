@@ -60,9 +60,9 @@ class SiteFootnote extends HTMLElement {
 		const sup = document.createElement("sup");
 		sup.appendChild(a);
 
-		const previousSibling = this.previousElementSibling;
-		if (previousSibling && previousSibling.tagName !== "SUP") {
-			previousSibling.appendChild(sup);
+		const prev = this.previousSibling;
+		if (prev?.nodeType === Node.ELEMENT_NODE && prev.tagName !== "SUP") {
+			prev.appendChild(sup);
 			this.remove();
 		} else {
 			this.replaceWith(sup);
