@@ -26,9 +26,13 @@ cd "$WORK_TREE" && git --git-dir="$GIT_DIR" --work-tree="$WORK_TREE" submodule u
 # Update the hook from the repo (self-update for next run)
 cp "$WORK_TREE/post-receive" "$GIT_DIR/hooks/post-receive"
 
+# Create .git file pointing to bare repo (allows builder to find files correctly)
+# This mimics the structure created by git worktree, where .git is a file not a directory
+echo "gitdir: $GIT_DIR" > "$WORK_TREE/.git"
+
 # Navigate to work tree and build
-# Pass the bare repo location since the work tree doesn't have a .git directory
-cd "$WORK_TREE" && ./build.sh _SITE_EXT_GIT_DIR="$GIT_DIR"
+# Now builder can use the default .git location
+cd "$WORK_TREE" && ./build.sh
 
 # Copy built files to public directory (using . [Glob] to include hidden files)
 cp -r "$WORK_TREE/docs/." "$PUBLIC_DIR/"
