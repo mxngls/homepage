@@ -112,7 +112,10 @@ a:visited {
 
 blockquote {
 	position: relative;
-	font-size: 90%;
+	font-size: 95%;
+
+	margin-top: var(--space-lg);
+	margin-bottom: var(--space-lg);
 
 	padding: 0 var(--space-xl);
 	opacity: 0.7;
@@ -126,13 +129,13 @@ blockquote::before {
 	top: 0;
 	bottom: 0;
 
-	height: 90%;
-	width: 1rem;
+	height: 100%;
+	width: 0.7rem;
 
 	margin: auto 0;
 
 	background: var(--color-muted);
-	border-radius: var(--border-radius);
+	border-radius: calc(var(--border-radius) - 5px);
 }
 
 code {
