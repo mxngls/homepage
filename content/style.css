@@ -193,8 +193,8 @@ main {
 }
 
 pre {
-	padding: var(--space-md);
-	max-width: 110%;
+	padding: var(--space-lg);
+	max-width: 95%;
 
 	background: var(--color-code-bg);
 
