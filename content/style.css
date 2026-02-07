@@ -166,12 +166,6 @@ footer ul {
 
 footer a {
 	text-decoration: none;
-}
-
-footer a:hover {
-	text-decoration: underline;
-	text-underline-offset: var(--text-underline-offset);
-	text-decoration-thickness: var(--text-decoration-thickness);
 	font-weight: var(--font-weight-md);
 }
 
@@ -281,10 +275,6 @@ sup {
 	transform-origin: center;
 }
 
-#post-list a:hover {
-	transform: scale(1.05);
-}
-
 @media (min-width: 640px) {
 	#post-list a {
 		gap: var(--space-xl);
@@ -297,6 +287,10 @@ sup {
 	font-weight: var(--font-weight-md);
 
 	white-space: nowrap;
+
+	/* text-decoration: underline; */
+	/* text-underline-offset: var(--text-underline-offset); */
+	/* text-decoration-thickness: var(--text-decoration-thickness); */
 }
 
 .post-list-title {
@@ -325,10 +319,6 @@ sup {
 	font-weight: var(--font-weight-md);
 
 	transition: transform 0.2s ease;
-}
-
-#post-back-ref:hover {
-	transform: scale(1.2);
 }
 
 #post-date {
