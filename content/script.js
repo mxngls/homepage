@@ -26,21 +26,27 @@ class SiteFootnote extends HTMLElement {
 
 	processContent() {
 		const contentContainer =
-			document.getElementById("post-body") ?? document.getElementsByTagName("main").item(0);
+			document.getElementById("post-body") ??
+			document.getElementsByTagName("main").item(0);
 		if (!contentContainer) {
 			throw new Error(
-				`${SITE_FOOTNOTE_TAGNAME}: Content container to append footnotes to not found`,
+				`${SITE_FOOTNOTE_TAGNAME}: Content container to append footnotes to not found`
 			);
 		}
 
 		const footnoteContainer = document.getElementById("footnotes");
 		if (!footnoteContainer || !this.footnoteContainer) {
-			this.footnoteContainer = this.initContainer(contentContainer, footnoteContainer);
+			this.footnoteContainer = this.initContainer(
+				contentContainer,
+				footnoteContainer
+			);
 		}
 		const content = this.innerHTML.trim();
 
 		if (!content) {
-			console.warn(`${SITE_FOOTNOTE_TAGNAME}: Empty footnote content, skipping`);
+			console.warn(
+				`${SITE_FOOTNOTE_TAGNAME}: Empty footnote content, skipping`
+			);
 			this.remove();
 			return;
 		}
@@ -85,7 +91,9 @@ class SiteFootnote extends HTMLElement {
 
 		const ol = this.footnoteContainer.getElementsByTagName("ol").item(0);
 		if (!ol) {
-			throw new Error(`${SITE_FOOTNOTE_TAGNAME}: Footnote list not found`);
+			throw new Error(
+				`${SITE_FOOTNOTE_TAGNAME}: Footnote list not found`
+			);
 		}
 
 		ol.appendChild(li);
