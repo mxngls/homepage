@@ -1,69 +1,99 @@
 <!-- prettier-ignore -->
-title: Five Questions Concerning the Literature Machine and Computer Programming
+title: Questions Concerning The Literature Machine and Computer Programming
 
 <p>
 	The following is a loose collection of thoughts and questions that deal
 	broadly with how the advent of LLMs and their continuous improvement are
-	poised to influence and shape our industry or are already doing so. A few of
-	these have at least partial answers while for most I have not yet arrived at
-	a satisfying conclusion for myself. As such I expect to update this document
-	continuously over the following months. I mostly limit myself to aspects of
-	the ongoing discourse which I feel are currently underdiscussed.
+	poised to influence and shape our industry, or are already doing so. I
+	mostly limit myself to those questions that deal with aspects of the ongoing
+	discourse which I feel are currently under-discussed.
+</p>
+<p>
+	A few of these questions have at least partial answers while for most I have
+	not yet arrived at a satisfying conclusion for myself. As such I expect to
+	update this document continuously over the following months.
 </p>
 <ol>
 	<li>
 		<p>
 			<strong>
-				Will software engineering simply be less <em>fun</em>?
+				Will computer programming spark less
+				<em>joy</em>
+				?
 			</strong>
 		</p>
 		<p>
 			Until now computer programming entailed, besides the obviously
-			necessary knowledge about computer science, minute knowledge of lots
-			of adjacent technologies. As of right now these seem to lose in
-			importance significantly over the coming years. For someone who does
-			not strictly take pride in this knowledge and the ability to use
-			these tools productively, but rather derives <i>joy</i> from it,
-			this shift troubles me.
+			necessary knowledge about computer science, detailed knowledge of
+			lots of adjacent technologies and tools. These seem set to lose
+			significance over the coming years or will change dramatically at
+			least.
 		</p>
 		<p>
-			Naur already argued already in the 80s that the essence of
-			programming lies in theory building and that the exact methodology
-			applied - the how we work - does not really matter that much and is
-			a rather adjunct part.<site-footnote
-				><a href="https://pages.cs.wisc.edu/~remzi/Naur.pdf"
-					>Peter Naur, Programming as Theory Building</a
-				></site-footnote
-			>
-
-			It seems we are faced anew with the question of what exactly is
-			computer programming and have yet to find an answer, for us as
-			individuals and as an industry as a whole.
+			Ironically, these very tools—the command line and the small UNIX
+			utilities that give it such power—are what make LLMs as capable and
+			versatile for developing software as they are. Learning to wield
+			them productively takes years of practice. Plain text is often not
+			the most suitable interface for humans, though it may be the most
+			powerful. Things are different. Remembering endless command line
+			flags and reading through dozens of man pages might prove a
+			challenge for us humans, but for today's capable models this is a
+			breeze. I for my part enjoy learning these tools and discovering
+			their cultural significance in the process. But for better or worse,
+			this knowledge may soon be a relic (Claude is already way better at
+			grepping things than I am, and so it just makes more sense to prompt
+			the agent to look for certain things or perform operations over
+			files and directories as opposed to doing this ourselves).</p
+		>
+		<p>
+			Naur argued in the 1980s that the essence of programming lies in
+			theory building, and that the exact methodology applied—the how of
+			our work—matters relatively little and is largely secondary. The
+			accelerating development of these artificially intelligent entities
+			and how they are reshaping our profession, seems to prove him
+			correct.
+			<site-footnote>
+				<a href="https://pages.cs.wisc.edu/~remzi/Naur.pdf">
+					Naur, Peter Programming as Theory Building
+				</a>
+			</site-footnote>
+			We are faced anew with the question of what programming actually is,
+			and have yet to find an answer—both as individuals and as an
+			industry.
 		</p>
 	</li>
 	<li>
 		<p>
 			<strong>
-				Will the lack thereof or at least a significant reduction in
-				manual labor mean the loss of hard-won earned unembodied
+				Will the lack of manual labor mean the loss of hard-won tacit
 				knowledge?
 			</strong>
-			<site-footnote>
-				See
-				<a
-					href="https://plato.stanford.edu/entries/popper/#ObjeKnowThreWorlOnto"
-					>Objective Knowledge and the Three Worlds Ontology</a
-				>
-				for a short introduction to what Popper describes as unembodied
-				objects.
-			</site-footnote>
 		</p>
 		<p>
-			Creative and intellectual work involves inspiration, which does not
-			conform to or follow strict rules and cannot be predicted. Getting
-			rid of the majority of practices that constitute our work might lead
-			to the loss of something valuable that has so far only existed in
-			the intangible.
+			Michael Polanyi coined the term <q>tacit knowledge</q> in
+			<i>Personal Knowledge</i> (1958) and especially his later work
+			<i>Tacit Dimension</i> (1966),<site-footnote>
+				<a
+					href="https://archive.org/details/tacitdimension0000mich_w4j8"
+				>
+					Polanyi, Michael, The Tacit Dimension
+				</a>
+			</site-footnote>
+			and popularized the concept through the rather bold assertion that
+			"We know more than we can tell". A recurring term coming up in
+			discussions around using LLMs in computer programming is
+			<a
+				href="https://geohot.github.io/blog/jekyll/update/2025/12/18/computer-use-models.html"
+			>
+				taste</a
+			>, which hints at a similar concept that is difficult to express
+			explicitly. Before her retirement, my mother worked as a teacher and
+			firmly believed in the value of handwriting as a learning tool. She
+			felt that the mechanical act of writing helped students truly
+			understand and retain material, and it was one of her convictions
+			she would not back down from. I fear that giving up most of the
+			manual and laborious parts of our work might mean the eventual loss
+			of this kind of embodied knowledge.
 		</p>
 	</li>
 	<li>
@@ -72,62 +102,64 @@ title: Five Questions Concerning the Literature Machine and Computer Programming
 		</p>
 		<p>
 			For a long time the conventional wisdom was that in order to improve
-			as an engineer one has to work on implementations themselves if they
-			really desired to understand the underlying theory behind it. I
+			as a software engineer one has to work on implementations oneself if
+			one really desires to understand the underlying theory behind it. I
 			found this to be true for myself, but now development speed seems to
 			be the prime factor occupying the minds of even the most senior
-			members of our trade. I question if real learning is truly possible
+			members of our trade. I question whether real learning is possible
 			if all that's left for us as humans is
-			<i>delegation</i> and the actual <i>implementation</i> will be left
-			to the machine instead. While we might churn out code faster than
-			ever, I'm not sure if our brains can necessarily keep up with that
-			pace.
+			<i>delegation</i>, while the actual <i>implementation</i> is left to
+			the machine instead. While we might churn out code faster than ever,
+			I'm not sure if our brains can necessarily keep up with that pace.
 		</p>
 		<p>
 			On the other hand, moving fast and breaking things has been the
-			ethos of Silicon Valley for as long as most of its members might
-			remember and LLMs accelerate this dynamic, which above all rewards
-			the quick and not the conscious, even further.
+			ethos of Silicon Valley all along and LLMs just accelerate this
+			dynamic, which above all rewards the quick and not the conscious.
 		</p>
 	</li>
 	<li>
 		<p>
-			<strong
-				>How can we make sure that we as a field advance in a way that
-				allows for the continuous existence of its labor force?</strong
-			>
+			<strong>
+				How can we advance while ensuring the continuity of our
+				workforce?
+			</strong>
 		</p>
 		<p>
 			While the question could be interpreted as speaking about the
 			obvious economic implications of the further automation that this
-			new technology seems predetermined to bring upon us, what I want to
-			focus on is something different.
+			new technology seems predetermined to bring upon us, I want to focus
+			on something different here.
 		</p>
 		<p>
-			Adjacent to the previous point, LLMs have a tremendous potential to
-			facilitate learning like nothing else before. They are correctly
-			described as stochastically working and almost certainly lacking a
-			real understanding of the underlying concepts of the given problem
-			they are working on. But as models are evolving almost faster than
-			we keep track of, it is becoming evident that especially when
-			working on problems of limited depth their rate of failure is
-			surprisingly low. Consequently private tutors for everyone -
-			historically a luxury reserved only for the children of society's
-			most prosperous - are already a reality today. When used responsibly
-			they undoubtedly have the ability to level the playing field of
-			education even more.
+			Adjacent to the previous point, LLMs have tremendous potential to
+			facilitate learning like nothing else before. They are described as
+			probabilistically working and almost certainly lack a real
+			understanding of the underlying concepts of the given problem they
+			are working on. But as models are evolving almost faster than we can
+			keep track of, it is becoming evident that, especially when working
+			on problems of limited depth, their rate of failure is surprisingly
+			low. Consequently private tutors - historically a luxury reserved
+			only for the children of society's most prosperous - are already a
+			reality today. When used responsibly, they undoubtedly have the
+			ability to level the playing field of education even more.
 		</p>
 		<p>
-			But, learning requires attention and time. Sporadically reviewing
-			the product of that probabilistic slot machine, or going even
-			further, removing oneself from the loop entirely, erodes the
-			attention necessary to reflect on unsolved problems and reach
-			conclusions on our own. Refreshing social media feeds seems to have
-			a similar effect as we no longer truly engage with content
-			intellectually, and instead push ourselves towards maintaining a
-			superficial distance. I fear that we as humans lack the necessary
-			restraint to not fall victim to exactly this dynamic now in the
-			context of intellectual work.
+			But, learning requires attention and time. As others have
+			<a href="https://x.com/oznova_/status/1180600652675743751"
+				>observed</a
+			>
+			as well: Learning means struggle. Sporadically reviewing the product
+			of that probabilistic slot machine, or going even further, removing
+			oneself from the loop entirely, erodes the attention necessary to
+			reflect on unsolved problems and reach conclusions on our own.
+			Refreshing social media feeds seems to have a similar effect as we
+			no longer truly engage with content intellectually, and instead push
+			ourselves towards maintaining a superficial distance. Issues posted
+			during AI service outages reveal this behavior already at work. I
+			fear that we as humans lack the necessary restraint not to fall
+			victim to exactly this dynamic now in the context of intellectual
+			work.
 		</p>
 		<p>
 			The fact that this concern doesn't seem to be widely shared among
@@ -137,18 +169,35 @@ title: Five Questions Concerning the Literature Machine and Computer Programming
 	</li>
 	<li>
 		<p>
-			<strong
-				>Will this contribute to the existing social alienation felt by
-				many and lead to decreased collaboration between us?</strong
-			>
+			<strong>
+				Will this contribute to the existing social alienation felt by
+				many and lead to decreased collaboration between us?
+			</strong>
 		</p>
 		<p>
-			Superficially broadening the knowledge of individuals might obsolete
+			Superficially broadening the knowledge of individuals might obviate
 			the necessity of collaboration between them. Paraphrasing from some
-			private correspondence: we may be trading the messy, generative
+			private correspondence: We may be trading the messy, generative
 			friction of human collaboration for the frictionless isolation of
-			individual sufficiency. Here it is, again, questionable what the
-			lost long-term value of this convenience might be.
+			individual sufficiency.
 		</p>
 	</li>
 </ol>
+<p>
+	If I had to summarize these questions and concerns, I would be inclined to
+	say the following: LLMs in their current form are incredibly powerful tools
+	and provide undeniable value to us as practitioners. But, it is not clear
+	yet whether we are able to benefit from their usage in the long-term as
+	well. Wielding these tools cautiously and responsibly can empower us as
+	humans even more and foster more of our inherent strengths. Yet these tools
+	do not exist in a vacuum. They are shaped by the incentives of the
+	environment that produced them, and the interfaces through which we are
+	meant to engage with them are an extension of those same incentives. The
+	manner in which a technology is presented to us can quietly erode the very
+	benefits it promises.
+</p>
+<p>
+	For now only one thing seems certain: our work as software engineers will
+	change drastically over the coming months and years. Whether that change
+	will diminish or enrich us as humans is still ours to determine.
+</p>
