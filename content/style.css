@@ -29,13 +29,16 @@
 	--font-body: "Source Sans 3", sans-serif;
 	--font-mono: "Inconsolata", monospace;
 	--font-size-base: 1.1em;
-	--font-size-sm: 110%;
 	--font-size-xs: 80%;
-
-	--text-underline-offset: 0.14em;
-	--text-decoration-thickness: 0.06em;
+	--font-size-sm: 110%;
+	--font-weight-base: 400;
+	--font-weight-sm: 500;
+	--font-weight-md: 600;
+	--font-weight-lg: 700;
 
 	/* Effects */
+	--text-underline-offset: 0.14em;
+	--text-decoration-thickness: 0.06em;
 	--border-radius: 7px;
 }
 
@@ -75,7 +78,7 @@ body {
 
 	font-family: var(--font-body);
 	font-size: var(--font-size-base);
-	font-weight: 400;
+	font-weight: var(--font-weight-base);
 
 	line-height: 1.7;
 	text-rendering: optimizeLegibility;
@@ -109,7 +112,7 @@ a:visited {
 	text-underline-offset: var(--text-underline-offset);
 	text-decoration-thickness: var(--text-decoration-thickness);
 
-	font-weight: 450;
+	font-weight: var(--font-weight-sm);
 }
 
 blockquote {
@@ -169,6 +172,7 @@ footer a:hover {
 	text-decoration: underline;
 	text-underline-offset: var(--text-underline-offset);
 	text-decoration-thickness: var(--text-decoration-thickness);
+	font-weight: var(--font-weight-md);
 }
 
 h1 {
@@ -290,13 +294,13 @@ sup {
 .post-list-date {
 	color: var(--color-link);
 
-	font-weight: 700;
+	font-weight: var(--font-weight-md);
 
 	white-space: nowrap;
 }
 
 .post-list-title {
-	font-weight: 500;
+	font-weight: var(--font-weight-md);
 }
 
 /* Posts */
@@ -318,7 +322,7 @@ sup {
 	text-decoration: none;
 
 	font-size: 110%;
-	font-weight: 700;
+	font-weight: var(--font-weight-md);
 
 	transition: transform 0.2s ease;
 }
@@ -413,7 +417,7 @@ sup {
 	display: inline-block;
 
 	text-decoration: none;
-	font-weight: 700;
+	font-weight: var(--font-weight-lg);
 
 	transition: transform 0.2s ease;
 	transform-origin: center;
