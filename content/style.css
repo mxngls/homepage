@@ -94,8 +94,8 @@ p,
 pre,
 section,
 ul {
-	margin-top: var(--space-3xl);
-	margin-bottom: var(--space-3xl);
+	margin-top: var(--space-2xl);
+	margin-bottom: var(--space-2xl);
 }
 
 /* Typography & Content */
@@ -222,6 +222,11 @@ sup {
 	ol {
 		padding-left: 0;
 	}
+
+	li {
+		margin-left: calc(-1 * var(--space-sm));
+		padding-left: var(--space-sm);
+	}
 }
 
 /* Layout */
@@ -240,7 +245,8 @@ sup {
 
 @media (min-width: 640px) {
 	#content {
-		padding: calc(var(--space-3xl) + var(--space-xl)) var(--space-lg) var(--space-xl);
+		padding: calc(var(--space-3xl) + var(--space-xl)) var(--space-lg)
+			var(--space-xl);
 	}
 }
 
@@ -349,6 +355,11 @@ sup {
 	order: -1;
 }
 
+#footnotes ol li p {
+	margin-top: var(--space-xl);
+	margin-bottom: var(--space-xl);
+}
+
 .footnote-backlink {
 	margin-left: 0.4em;
 	text-decoration: none;
@@ -361,7 +372,7 @@ sup {
 }
 
 .footnote-reference {
-	margin-left: 0.1em;
+	margin: 0 0.1em;
 
 	text-decoration: none;
 }
