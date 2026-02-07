@@ -31,7 +31,7 @@
 	--font-size-xs: 80%;
 
 	--text-underline-offset: 0.14em;
-	--text-decoration-thickness: 0.07em;
+	--text-decoration-thickness: 0.06em;
 
 	/* Effects */
 	--border-radius: 7px;
@@ -107,7 +107,7 @@ a:visited {
 	text-underline-offset: var(--text-underline-offset);
 	text-decoration-thickness: var(--text-decoration-thickness);
 
-	font-weight: 500;
+	font-weight: 450;
 }
 
 blockquote {
