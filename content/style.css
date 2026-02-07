@@ -16,6 +16,8 @@
 	--content-max-width: 780px;
 
 	/* Spacing scale */
+	--space-2xs: 0.125rem;
+	--space-xs: 0.25rem;
 	--space-sm: 0.5rem;
 	--space-md: 1rem;
 	--space-lg: 1.5rem;
@@ -224,8 +226,8 @@ sup {
 	}
 
 	li {
-		margin-left: calc(-1 * var(--space-sm));
-		padding-left: var(--space-sm);
+		margin-left: calc(-1 * var(--space-2xs));
+		padding-left: var(--space-2xs);
 	}
 }
 
