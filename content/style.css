@@ -317,16 +317,17 @@ sup {
 	flex: 1;
 }
 
-#post-body > :first-child {
-	margin-top: 0;
-}
+#post-back-ref::before {
+	content: "←";
 
-#post-body > :last-child {
-	margin-bottom: 0;
+	margin-right: 0.25em;
+
+	font-family: system-ui, sans-serif;
 }
 
 #post-back-ref {
-	display: inline-block;
+	display: block;
+	margin: var(--space-xl) auto;
 
 	text-decoration: none;
 
