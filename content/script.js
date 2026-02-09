@@ -84,7 +84,7 @@ class SiteFootnote extends HTMLElement {
 		p.innerHTML = content;
 		a.classList.add("footnote-backlink");
 		a.href = `#footnote-reference-${this.footnoteNumber}`;
-		a.innerText = "↩";
+		a.innerText = "↩\uFE0E";
 
 		li.appendChild(p);
 		p.appendChild(a);
