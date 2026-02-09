@@ -111,8 +111,6 @@ a:visited {
 	text-decoration: underline;
 	text-underline-offset: var(--text-underline-offset);
 	text-decoration-thickness: var(--text-decoration-thickness);
-
-	font-weight: var(--font-weight-sm);
 }
 
 blockquote {
@@ -161,12 +159,7 @@ footer ul {
 	padding: 0;
 
 	display: flex;
-	gap: var(--space-lg);
-}
-
-footer a {
-	text-decoration: none;
-	font-weight: var(--font-weight-md);
+	gap: var(--space-2xl);
 }
 
 h1 {
@@ -299,7 +292,6 @@ sup {
 	color: var(--color-fg);
 
 	transition: transform 0.2s ease;
-	transform-origin: center;
 }
 
 @media (min-width: 640px) {
@@ -314,10 +306,6 @@ sup {
 	font-weight: var(--font-weight-md);
 
 	white-space: nowrap;
-
-	/* text-decoration: underline; */
-	/* text-underline-offset: var(--text-underline-offset); */
-	/* text-decoration-thickness: var(--text-decoration-thickness); */
 }
 
 .post-list-title {
@@ -383,9 +371,21 @@ sup {
 	margin-bottom: var(--space-xl);
 }
 
+.link-visible {
+	font-weight: var(--font-weight-md);
+	text-decoration: none;
+}
+
+.link-visible::after {
+	content: "↗";
+
+	margin-left: 0.15em;
+
+	font-family: system-ui, sans-serif;
+}
+
 .footnote-backlink {
 	margin-left: 0.4em;
-	text-decoration: none;
 }
 
 .footnote-backlink:hover {
