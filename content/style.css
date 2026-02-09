@@ -2,8 +2,8 @@
 
 :root {
 	/* Colors */
-	--color-fg: oklch(22% 4% 28deg);
-	--color-bg: oklch(92% 1% 28deg);
+	--color-fg: oklch(32% 4% 28deg);
+	--color-bg: oklch(93% 1% 28deg);
 
 	--color-border-bg: oklch(66% 2.5% 28deg);
 
@@ -13,7 +13,7 @@
 	--color-link: oklch(56% 40% 48deg);
 
 	/* Layout */
-	--content-max-width: 780px;
+	--content-max-width: 700px;
 
 	/* Spacing scale */
 	--space-2xs: 0.125rem;
@@ -24,20 +24,22 @@
 	--space-xl: 2rem;
 	--space-2xl: 3rem;
 	--space-3xl: 4rem;
+	--space-4xl: 6rem;
 
 	/* Typography */
 	--font-body: "Source Sans 3", sans-serif;
 	--font-mono: "Inconsolata", monospace;
-	--font-size-base: 1.1em;
+	--font-size-base: 1rem;
 	--font-size-xs: 80%;
 	--font-size-sm: 110%;
+	--font-weight-xs: 300;
 	--font-weight-base: 400;
 	--font-weight-sm: 500;
 	--font-weight-md: 600;
 	--font-weight-lg: 700;
 
 	/* Effects */
-	--text-underline-offset: 0.14em;
+	--text-underline-offset: 0.18em;
 	--text-decoration-thickness: 0.06em;
 	--border-radius: 7px;
 }
@@ -46,8 +48,8 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		/* Colors */
-		--color-fg: oklch(92% 1% 28deg);
-		--color-bg: oklch(22% 4% 28deg);
+		--color-fg: oklch(93% 1% 28deg);
+		--color-bg: oklch(18% 4% 28deg);
 
 		--color-border-bg: oklch(44% 7% 28deg);
 
@@ -77,7 +79,7 @@ body {
 	color: var(--color-fg);
 
 	font-family: var(--font-body);
-	font-size: var(--font-size-base);
+	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-base);
 
 	line-height: 1.7;
@@ -132,10 +134,7 @@ blockquote::before {
 	top: 0;
 	bottom: 0;
 
-	height: 100%;
 	width: 0.7rem;
-
-	margin: auto 0;
 
 	background: var(--color-muted);
 	border-radius: calc(var(--border-radius) - 5px);
@@ -256,7 +255,7 @@ sup {
 
 	box-sizing: border-box;
 
-	padding: var(--space-md) var(--space-lg);
+	padding: var(--space-md) var(--space-md);
 	margin: 0 auto;
 
 	display: flex;
@@ -333,12 +332,10 @@ sup {
 
 	font-size: 110%;
 	font-weight: var(--font-weight-md);
-
-	transition: transform 0.2s ease;
 }
 
 #post-date {
-	margin: var(--space-xl) 0;
+	margin: var(--space-4xl) 0 var(--space-xl);
 
 	display: flex;
 	flex-direction: column;
@@ -438,7 +435,6 @@ sup {
 	font-weight: var(--font-weight-lg);
 
 	transition: transform 0.2s ease;
-	transform-origin: center;
 }
 
 #error-page a:hover {
