@@ -386,12 +386,6 @@ sup {
 	margin-left: 0.4em;
 }
 
-.footnote-backlink:hover {
-	text-decoration: underline;
-	text-underline-offset: var(--text-underline-offset);
-	text-decoration-thickness: var(--text-decoration-thickness);
-}
-
 .footnote-reference {
 	margin: 0 0.1em;
 
