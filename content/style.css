@@ -309,15 +309,19 @@ sup {
 }
 
 .post-list-title {
-	font-weight: var(--font-weight-md);
+	text-decoration: underline;
 }
 
 /* Posts */
 #post-body {
 	flex: 1;
 }
+#post-back-ref {
+	display: block;
+	margin: var(--space-xl) auto;
+}
 
-#post-back-ref::before {
+#post-back-ref > a::before {
 	content: "←";
 
 	margin-right: 0.25em;
@@ -325,10 +329,7 @@ sup {
 	font-family: system-ui, sans-serif;
 }
 
-#post-back-ref {
-	display: block;
-	margin: var(--space-xl) auto;
-
+#post-back-ref > a {
 	text-decoration: none;
 
 	font-size: 110%;
