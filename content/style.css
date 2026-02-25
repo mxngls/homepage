@@ -10,7 +10,8 @@
 	--color-code-bg: oklch(86% 2.5% 28deg);
 	--color-muted: oklch(72% 4% 28deg);
 
-	--color-link: oklch(56% 40% 48deg);
+	--color-link: oklch(50% 40% 48deg);
+	--color-link-muted: oklch(70% 26% 48deg);
 
 	/* Layout */
 	--content-max-width: 700px;
@@ -34,13 +35,13 @@
 	--font-size-sm: 110%;
 	--font-weight-xs: 300;
 	--font-weight-base: 400;
-	--font-weight-sm: 500;
+	--font-weight-sm: 500; /* TODO: Some font weights don't seem to work with Source Sans. Figure out why.*/
 	--font-weight-md: 600;
 	--font-weight-lg: 700;
 
 	/* Effects */
-	--text-underline-offset: 0.18em;
-	--text-decoration-thickness: 0.06em;
+	--text-underline-offset: 0.22em;
+	--text-decoration-thickness: 0.085em;
 	--border-radius: 7px;
 }
 
@@ -57,6 +58,7 @@
 		--color-muted: oklch(50% 4% 28deg);
 
 		--color-link: oklch(70% 40% 48deg);
+		--color-link-muted: oklch(50% 26% 48deg);
 	}
 }
 
@@ -111,6 +113,7 @@ a:visited {
 	color: var(--color-link);
 
 	text-decoration: underline;
+	text-decoration-color: var(--color-link-muted);
 	text-underline-offset: var(--text-underline-offset);
 	text-decoration-thickness: var(--text-decoration-thickness);
 }
@@ -303,19 +306,22 @@ sup {
 .post-list-date {
 	color: var(--color-link);
 
-	font-weight: var(--font-weight-md);
+	font-weight: var(--font-weight-sm);
 
 	white-space: nowrap;
 }
 
 .post-list-title {
 	text-decoration: underline;
+	text-decoration-color: var(--color-muted);
+	text-decoration-thickness: var(--text-decoration-thickness);
 }
 
 /* Posts */
 #post-body {
 	flex: 1;
 }
+
 #post-back-ref {
 	display: block;
 	margin: var(--space-xl) auto;
@@ -333,7 +339,7 @@ sup {
 	text-decoration: none;
 
 	font-size: 110%;
-	font-weight: var(--font-weight-md);
+	font-weight: var(--font-weight-sm);
 }
 
 #post-date {
@@ -374,7 +380,7 @@ sup {
 /* Special links */
 .link,
 .link-external {
-	font-weight: var(--font-weight-md);
+	font-weight: var(--font-weight-sm);
 	text-decoration: none;
 }
 
@@ -392,14 +398,6 @@ sup {
 
 .footnote-reference {
 	margin: 0 0.1em;
-
-	text-decoration: none;
-}
-
-.footnote-reference:hover {
-	text-decoration: underline;
-	text-underline-offset: var(--text-underline-offset);
-	text-decoration-thickness: var(--text-decoration-thickness);
 }
 
 /* Error pages */
