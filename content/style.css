@@ -385,10 +385,9 @@ sup {
 	text-decoration: none;
 }
 
+li[data-page-kind="link"] a .post-list-title::after,
 .link-external::after {
-	content: "↗";
-
-	margin-left: 0.15em;
+	content: " ↗";
 
 	font-family: system-ui, sans-serif;
 }
