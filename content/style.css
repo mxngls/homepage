@@ -309,7 +309,7 @@ sup {
 	font-weight: var(--font-weight-sm);
 
 	white-space: nowrap;
-	min-width: 4em;
+	min-width: 5em;
 }
 
 .post-list-title {
