@@ -309,6 +309,7 @@ sup {
 	font-weight: var(--font-weight-sm);
 
 	white-space: nowrap;
+	min-width: 4em;
 }
 
 .post-list-title {
@@ -397,7 +398,7 @@ sup {
 }
 
 .footnote-reference {
-	margin: 0 0.1em;
+	margin: 0 0.3em;
 }
 
 /* Error pages */
