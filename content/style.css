@@ -281,7 +281,7 @@ sup {
 }
 
 #post-list li {
-	margin-bottom: var(--space-xl);
+	margin-bottom: var(--space-sm);
 	width: fit-content;
 }
 
