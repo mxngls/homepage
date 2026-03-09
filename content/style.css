@@ -375,31 +375,27 @@ sup {
 	order: -1;
 }
 
-#footnotes ol li p {
-	margin-top: var(--space-xl);
-	margin-bottom: var(--space-xl);
-}
-
 /* Special links */
-.link,
-.link-external {
-	font-weight: var(--font-weight-sm);
-	text-decoration: none;
-}
-
-li[data-page-kind="link"] a .post-list-title::after,
-.link-external::after {
+li[data-page-kind="link"] a .post-list-title::after {
 	content: " ↗";
 
 	font-family: system-ui, sans-serif;
 }
 
+/* footnotes */
+#footnotes ol li p {
+	margin-top: var(--space-xl);
+	margin-bottom: var(--space-xl);
+}
+
 .footnote-backlink {
 	margin-left: 0.4em;
+	text-decoration: none;
 }
 
 .footnote-reference {
 	margin: 0 0.3em;
+	text-decoration: none;
 }
 
 /* Error pages */
