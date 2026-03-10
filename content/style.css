@@ -1,3 +1,8 @@
+/* Cross-document view transitions */
+@view-transition {
+	navigation: auto;
+}
+
 /* Variables - Light mode as default */
 
 :root {
@@ -64,8 +69,6 @@
 
 /* Base Styles */
 html {
-	background: var(--color-bg);
-
 	scroll-padding-top: 0.3em;
 }
 
@@ -325,11 +328,60 @@ sup {
 	flex: 1;
 }
 
+/* View transition: whole-page crossfade */
+
+::view-transition-old(root) {
+	animation: fade-out 0.15s ease both;
+}
+
+::view-transition-new(root) {
+	animation: fade-in 0.2s ease 0.05s both;
+}
+
+/* Back link */
 #post-back-ref {
+	view-transition-name: back-link;
+
 	display: block;
 	margin: var(--space-xl) auto;
 }
 
+::view-transition-old(back-link) {
+	animation: fade-out 0.15s ease both;
+}
+
+::view-transition-new(back-link) {
+	animation: slide-from-top 0.3s ease 0.2s both;
+}
+
+/* Animations */
+
+@keyframes slide-from-top {
+	from {
+		opacity: 0;
+		translate: 0 -0.5rem;
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-out {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+/* Back link */
 #post-back-ref > a::before {
 	content: "←";
 
@@ -345,6 +397,7 @@ sup {
 	font-weight: var(--font-weight-sm);
 }
 
+/* Post date */
 #post-date {
 	margin: var(--space-4xl) 0 var(--space-xl);
 
