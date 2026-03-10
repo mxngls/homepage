@@ -33,6 +33,7 @@
 	--space-4xl: 6rem;
 
 	/* Typography */
+	--font-title: "Cute Font", monospace;
 	--font-body: "Source Sans 3", sans-serif;
 	--font-mono: "Inconsolata", monospace;
 	--font-size-base: 1rem;
@@ -84,7 +85,7 @@ body {
 	color: var(--color-fg);
 
 	font-family: var(--font-body);
-	font-size: var(--font-size-sm);
+	font-size: var(--font-size-base);
 	font-weight: var(--font-weight-base);
 
 	line-height: 1.7;
@@ -171,8 +172,13 @@ footer ul {
 }
 
 h1 {
-	font-size: 2em;
+	font-size: 5em;
+	font-weight: normal;
+	font-family: var(--font-title);
+
 	text-wrap: pretty;
+
+	line-height: 1.4;
 }
 
 hr {
