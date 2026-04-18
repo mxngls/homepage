@@ -278,7 +278,7 @@ sup {
 
 	box-sizing: border-box;
 
-	padding: var(--space-md) var(--space-md);
+	padding: var(--space-xl) var(--space-md);
 	margin: 0 auto;
 
 	display: flex;
