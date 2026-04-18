@@ -33,7 +33,6 @@
 	--space-4xl: 6rem;
 
 	/* Typography */
-	--font-title: "Cute Font", monospace;
 	--font-body: "Source Sans 3", sans-serif;
 	--font-mono: "Inconsolata", monospace;
 	--font-size-base: 1rem;
@@ -174,7 +173,6 @@ footer ul {
 h1 {
 	font-size: 5em;
 	font-weight: normal;
-	font-family: var(--font-title);
 
 	text-wrap: pretty;
 
