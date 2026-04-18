@@ -12,6 +12,8 @@
 # to actually build the site. This file should be placed at
 # /home/private/repo.git/hooks/post-receive and made executable.
 
+set -e
+
 # Define paths
 GIT_DIR="/home/private/repo.git"
 WORK_TREE="/home/private/checked_out_repo"
