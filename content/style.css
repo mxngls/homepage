@@ -35,9 +35,9 @@
 	/* Typography */
 	--font-body: "Source Sans 3", sans-serif;
 	--font-mono: "Inconsolata", monospace;
-	--font-size-base: 1rem;
-	--font-size-xs: 80%;
-	--font-size-sm: 110%;
+	--font-size-base: 1.1rem;
+	--font-size-xs: calc(var(--font-size-base) * 0.8);
+	--font-size-sm: calc(var(--font-size-base) * 1.1);
 	--font-weight-xs: 300;
 	--font-weight-base: 400;
 	--font-weight-sm: 500; /* TODO: Some font weights don't seem to work with Source Sans. Figure out why.*/
@@ -182,8 +182,7 @@ footer li a:hover {
 }
 
 h1 {
-	font-size: 5em;
-	font-weight: normal;
+	font-size: 2em;
 
 	text-wrap: pretty;
 
