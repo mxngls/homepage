@@ -1,3 +1,4 @@
+// Custom Web Components
 const SITE_FOOTNOTE_TAGNAME = "site-footnote";
 
 class SiteFootnote extends HTMLElement {
@@ -116,3 +117,41 @@ class SiteFootnote extends HTMLElement {
 }
 
 customElements.define(SITE_FOOTNOTE_TAGNAME, SiteFootnote);
+
+// Other
+function groupPostsByYear(postListContainer) {
+	const list = postListContainer.querySelectorAll(":scope > ul")[0];
+
+	const groups = new Map();
+	const frag = document.createDocumentFragment();
+
+	list.querySelectorAll(":scope > li").forEach((li) => {
+		const ts = Number(li.dataset.postCreated);
+		const key = ts > 0 ? new Date(ts * 1000).getFullYear() : "Drafts";
+		if (!groups.has(key)) groups.set(key, []);
+		groups.get(key).push(li);
+	});
+
+	groups.entries().forEach(([year, items]) => {
+		console.log(items);
+		const section = document.createElement("section");
+		section.className = "post-list-year-group";
+
+		const heading = document.createElement("h2");
+		heading.id = `year-${year}`.toLowerCase();
+		heading.textContent = year;
+		heading.style.marginBottom = "1rem";
+
+		const ul = document.createElement("ul");
+		ul.append(...items);
+
+		section.append(heading, ul);
+		frag.append(section);
+	});
+
+	list.remove();
+	postListContainer.append(frag);
+}
+
+const postListContainer = document.getElementById("post-list");
+if (postListContainer) groupPostsByYear(postListContainer);

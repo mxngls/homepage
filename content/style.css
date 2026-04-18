@@ -170,6 +170,17 @@ footer ul {
 	gap: var(--space-lg);
 }
 
+footer li a {
+	text-decoration: none;
+	color: var(--color-fg) !important;
+}
+
+footer li a:hover {
+	text-decoration: underline;
+	text-underline-offset: var(--text-underline-offset);
+	text-decoration-color: var(--color-muted) !important;
+}
+
 h1 {
 	font-size: 5em;
 	font-weight: normal;
@@ -290,7 +301,7 @@ sup {
 }
 
 #post-list li {
-	margin-bottom: var(--space-sm);
+	margin-bottom: var(--space-md);
 	width: fit-content;
 }
 
@@ -301,9 +312,15 @@ sup {
 	flex-wrap: nowrap;
 
 	text-decoration: none;
-	color: var(--color-fg);
 
 	transition: transform 0.2s ease;
+}
+
+#post-list a:hover {
+	text-decoration: underline;
+	text-decoration-color: var(--color-link-muted) !important;
+	text-underline-offset: var(--text-underline-offset);
+	text-decoration-thickness: var(--text-decoration-thickness);
 }
 
 @media (min-width: 640px) {
@@ -313,18 +330,14 @@ sup {
 }
 
 .post-list-date {
+	display: none;
+
 	color: var(--color-link);
 
 	font-weight: var(--font-weight-sm);
 
 	white-space: nowrap;
 	min-width: 5em;
-}
-
-.post-list-title {
-	text-decoration: underline;
-	text-decoration-color: var(--color-muted);
-	text-decoration-thickness: var(--text-decoration-thickness);
 }
 
 /* Posts */
