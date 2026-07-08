@@ -228,6 +228,19 @@ ol {
 	padding-left: var(--space-lg);
 }
 
+dl {
+	display: grid;
+}
+
+dt {
+	font-style: italic;
+	grid-column-start: 1;
+}
+
+dd {
+	grid-column-start: 2;
+}
+
 .labeled-list {
 	list-style: none;
 	counter-reset: labeled-list;
