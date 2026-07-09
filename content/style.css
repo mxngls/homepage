@@ -107,7 +107,9 @@ ol,
 p,
 pre,
 section,
-ul {
+ul,
+ol,
+dl {
 	margin-top: var(--space-2xl);
 	margin-bottom: var(--space-2xl);
 }
@@ -225,11 +227,18 @@ q {
 
 ul,
 ol {
-	padding-left: var(--space-lg);
+	padding-left: var(--space-md);
+}
+
+ul li,
+ol li {
+	margin-top: var(--space-md);
+	margin-bottom: var(--space-md);
 }
 
 dl {
 	display: grid;
+	grid-auto-columns: 1fr 3fr;
 }
 
 dt {
@@ -268,8 +277,7 @@ sup {
 }
 
 @media (min-width: 768px) {
-	ul,
-	ol {
+	.labeled-list {
 		padding-left: 0;
 	}
 
@@ -469,9 +477,14 @@ li[data-page-kind="link"] a .post-list-title::after {
 }
 
 /* footnotes */
+#footnotes ol {
+	padding-left: var(--space-md);
+}
+
 #footnotes ol li p {
 	margin-top: var(--space-xl);
 	margin-bottom: var(--space-xl);
+	margin-left: var(--space-2xs);
 }
 
 .footnote-backlink {
@@ -482,6 +495,12 @@ li[data-page-kind="link"] a .post-list-title::after {
 .footnote-reference {
 	margin: 0 0.2em;
 	text-decoration: none;
+}
+
+@media (min-width: 768px) {
+	#footnotes ol {
+		padding-left: 0;
+	}
 }
 
 /* Error pages */
