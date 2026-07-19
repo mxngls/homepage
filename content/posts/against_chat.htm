@@ -2,70 +2,54 @@
 title: Against Chat
 
 <p>
-	The most prevalent interface of recent fame is undeniably the chat window.
-	Today it feels ubiquitous, almost as if all interactions gravitate into a
-	single indistinguishable blob. There may be many different reasons for this,
-	some good, some bad, but for now this does not interest us any further.
-	Instead I'd like to talk about LLMs (again). In particular about how they,
-	when not thought of simply in terms of replacing, but augmenting existing
-	interfaces, can lend software a dimension of fluidity that was previously
-	unattainable. Since LLMs rose to prominence, I have wondered how they might
-	eventually allow for novel ways to display information that previous
-	rule-based, traditional algorithms never managed to. Our world is simply too
-	messy to yield to their will. As part of my work on Mochi, I had the chance
-	to implement <strong>and</strong> experience for myself what this kind of
-	fluidity feels like in practice.
+	The most prevalent interface of recent fame is undeniably the chat window. Today it feels
+	ubiquitous, to the extent that almost all interactions gravitate toward a single
+	indistinguishable blob. This seems due in large part to an assumption that using LLMs
+	necessities replacing existing interfaces. I want to argue the opposite: if we instead view them
+	as an opportunity to augment existing interfaces, they can lend software a dimension of fluidity
+	that was previously unattainable. Since LLMs rose to prominence, I have wondered how they might
+	allow for ways of displaying information that traditional, rule-based algorithms never managed.
+	As part of my work on Mochi, I had the chance to implement
+	<strong>and</strong> experience for myself what this kind of fluidity feels like in practice.
 </p>
 
 <p>
-	The term Gen-AI is already so politically charged that it is hard to
-	disassociate it from the all-encompassing empty input field waiting for us
-	at every turn. When hearing "fluidity" and "computing" in a single sentence,
-	one might be tempted to think of the
-	<a href="https://x.com/tobyshooters/status/2047430119824765358?s=20"
-		>fever dreams</a
-	>
-	some designers imagine as the future, where every user interface becomes
-	infinitely malleable. While for some this might be counterintuitive, using
-	LLMs to generate, rather than merely process, works best when we confine
-	them to a narrow domain with strict rules they have to adhere to. This
-	limits the uncertainty on both ends: the model doesn't have to bend over
-	backwards to interpret our instructions, and what it produces naturally
-	stays within the bounds of what we had in mind when we first envisioned the
-	desired artifact.
+	The term Gen-AI is by now so entangled with that empty input field that the two are hard to pull
+	apart. When hearing "fluidity" and "computing" in a single sentence, one might be tempted to
+	think of the
+	<a href="https://x.com/tobyshooters/status/2047430119824765358?s=20">fever dreams</a> some
+	designers imagine as the infinitely malleable UI of the future. While this might seem
+	counterintuitive at first glance, using LLMs to generate, rather than merely process, works best
+	when we confine them to a narrow domain <strong>and</strong> interface with strict rules to
+	adhere to. This limits the uncertainty on both ends: the model doesn't have to bend over
+	backwards to interpret our instructions, and what it produces naturally stays within the bounds
+	of what we envisioned.
 </p>
 
 <p>
-	I'm sure there are endless possible use cases I have not yet even
-	considered, so I will limit myself for now to the one I do have personal
-	experience with: <i>dictionaries</i>. Like many others, I use spaced
-	repetition to study foreign languages. In practice this is a rather fancy
-	way of describing (electronic) flashcards: a word on one side and its
-	meaning on the other. Now, language is a delicate thing, and spanning
-	semantic boundaries across languages means bridging differences in how
-	cultures perceive the world. There is rarely a clean bijective mapping
-	between concepts; instead, we end up with superficially related, but
-	essentially different, words for the same idea. Most dictionaries offer a
-	lemma, alongside some form of definition, or, in monolingual dictionaries, a
-	paraphrase that strives to give an adequate explanation of its meaning. But
-	just as concepts differ between languages, so does each learner's
-	understanding of them, which rests on prior experience and knowledge. No
-	pre-compiled resource can account for the countless permutations of possible
-	questions individual learners might bring with them. Just as we might ask a
-	teacher about the contexts in which a term applies, or how it relates to
-	words we already know, we can now pose these questions to the computer and
-	accommodate these differences.
+	I'm sure there are countless possible use cases I have not even considered, so I will limit
+	myself for now to the one I do have personal experience with: <i>dictionaries</i>. Like many
+	others, I use spaced repetition to study foreign languages. In practice this is a rather fancy
+	name for (electronic) flashcards: a word on one side and its meaning on the other. Now, language
+	is a delicate thing, and spanning semantic boundaries across languages means bridging
+	differences in how cultures perceive the world. There is rarely a clean bijective mapping
+	between concepts; instead, we end up with superficially equivalent words that are, in fact,
+	essentially different. For any given word, a dictionary offers a fixed definition in our
+	language of choice. But, just as concepts differ between languages, so does each learner's
+	understanding of them, which rests on prior experience and knowledge. No pre-compiled resource
+	can account for the countless questions individual learners might bring with them. Just as we
+	might ask a teacher about the contexts in which a term applies, or how it relates to words we
+	already know, we can now pose these questions to the computer and get an answer that
+	accommodates these needs.
 </p>
 
 <p>
-	Let's make all this abstract talk more tangible: After two months of doing
-	spaced repetition to study Korean, I ended up with a bit less than 1,000
-	terms in my database of flashcards. Each of these has a field prosaically
-	named "question", which allows me to pose a question to an LLM, with the
-	contents of the current card as context. The field may be unused, in which
-	case it is simply invisible. I use this special field type on around 40% of
-	all my cards (exactly 432 as of <time datetime="2026-07-08">today</time>).
-	These mostly fall into three categories:
+	Let's make all this abstract talk more tangible: After two months of doing spaced repetition to
+	study Korean, I ended up with a bit less than 1,000 entries in my database of flashcards. Each
+	of these has a field prosaically named "question", which allows me to pose a question to an LLM,
+	with the contents of the current card as context. The field may be unused, in which case it is
+	simply invisible. I use this special field type on around 40% of all my cards (exactly 432 as of
+	<time datetime="2026-07-08">today</time>). These mostly fall into three categories:
 </p>
 
 <dl>
@@ -79,22 +63,22 @@ title: Against Chat
 				href="    https://stdict.korean.go.kr/search/searchView.do?word_no=374075&searchKeywordTo=3
         "
 				lang="ko"
+				style="word-break: keep-all"
 				>호수</a
 			>, 'number', which is easily confused with
 			<a
 				href="https://stdict.korean.go.kr/search/searchView.do?word_no=431367&searchKeywordTo=3"
 				lang="ko"
+				style="word-break: keep-all"
 				>번호</a
-			>, 'number'. You see why additional context might be
-			necessary?</site-footnote
+			>, 'number'. You see why additional context might be necessary?</site-footnote
 		></dd
 	>
 	<dt>Contextualization</dt>
 	<dd
 		><q>In what context is this commonly used?</q
 		><site-footnote
-			>This question appears verbatim across 50 different
-			cards.</site-footnote
+			>This question appears verbatim across 50 different cards.</site-footnote
 		></dd
 	>
 	<dt>Collocation</dt>
@@ -102,32 +86,25 @@ title: Against Chat
 </dl>
 
 <p>
-	Compared to the conversation mimicry enforced by the chat window, we
-	obviously give up some degrees of freedom when limiting ourselves to
-	intentionally confined interactions like this. From a technical perspective,
-	what all of these have in common is the following: The
-	<strong>brevity and closed nature</strong> of a single question and answer
-	pair, and the <strong>targeted context</strong> that the LLM is exposed to.
+	From a technical perspective, what these have in common is the following: The
+	<strong>brevity and closed nature</strong> of a single question and answer pair, and the
+	<strong>targeted context</strong> that the LLM is exposed to. True to the maxim less is more, we
+	gain quite a lot. First, practical concerns like context pollution are non-existent as there,
+	again, is (almost) no context that could get polluted to begin with. Second, such a limited
+	application permits smaller, seemingly less capable models, a win on both economic and
+	ecological grounds. Finally, there is no task being completed on our behalf. The output is not
+	something to skim and verify but something we actively sought and attentively read. The artifact
+	<strong>is</strong> the textual answer itself. The question about the human in the loop does not
+	arise, because there is no loop in the first place.
 </p>
-
 <p>
-	True to the maxim less is more, we gain a surprising amount in return.
-	First, practical concerns like context pollution are non-existent as there,
-	again, is (almost) no context that could get polluted to begin with. Second,
-	such a limited application permits smaller, seemingly less capable models, a
-	win on both economic and ecological grounds. Finally, there is no task being
-	completed on our behalf. The output is not something to skim and verify but
-	something we actively sought and attentively read. The artifact
-	<strong>is</strong> the textual answer itself. The question about the human
-	in the loop does not arise, because there is no loop in the first place. If
-	we instead weave their capabilities into the interfaces we already use, we
-	might eventually arrive at something far more productive.<site-footnote
+	Intentionally confining our interactions with LLMs like this, we lose the open-ended nature of
+	longer conversations that the chat window provides, but in return the artifact we're left with
+	is naturally focused precisely on what we need, while avoiding the pitfalls commonly associated
+	with them.<site-footnote
 		>As
-		<a href="https://x.com/turtlekiosk/status/2057157503213883587"
-			>others</a
-		>
-		have noted, the more interesting gains from a technology tend to be
-		those native to it, rather than those gained by forcing it to emulate an
-		existing human role.</site-footnote
+		<a href="https://x.com/turtlekiosk/status/2057157503213883587">others</a>
+		have noted, the more interesting gains from a technology tend to be those native to it,
+		rather than those gained by forcing it to emulate an existing human role.</site-footnote
 	>
 </p>
