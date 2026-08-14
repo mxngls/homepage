@@ -6,10 +6,8 @@ args=(
 	# static site generator specific
 	_SITE_EXT_SOURCE_DIR='../content'
 	_SITE_EXT_TARGET_DIR='../docs'
-	_SITE_EXT_SITE_INDEX='index.htm'
 	_SITE_EXT_BLOG_INDEX='index.htm'
 	_SITE_EXT_GIT_DIR='../.git'
-	_SITE_EXT_EXEMPT_EXTRA='\"about.htm\",\"err401.htm\",\"err403.htm\",\"err404.htm\",\"err500.htm\"'
 
 	# atom feed specific
 	_SITE_EXT_TITLE="\"Max's Homepage\""
