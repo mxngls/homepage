@@ -1,71 +1,66 @@
 :root {
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
+	--space-xs: 0.25rem;
+	--space-sm: 0.5rem;
+	--space-md: 1rem;
+	--space-lg: 1.5rem;
+	--space-xl: 2rem;
 
-    --color-gray1: #666666;
-    --color-gray2: #aaaaaa;
-    --color-gray3: #dbdbdb;
-    --color-gray4: #f1f1f1;
+	--color-fg: oklch(31% 0% 11deg);
+	--color-gray1: #555555;
+	--color-green: oklch(61% 30% 125deg);
 
-    --color-green: #9acd32;
-    --color-green-muted: #688c228d;
+	--color-page: oklch(100% 1% 77deg);
 
-    --color-pink-muted: #ffadff62;
+	--color-tag: oklch(58% 50% 25deg);
 
-    --font-size-default: 16px;
-    --line-height: 1.6;
+	--font-size-default: 1.1rem;
+	--line-height: 1.5;
+	--list-indent: 2ch;
 
-    --wrap-inner-pad: calc(5 * var(--space-xl));
+	--wrapper-width: 700px;
+	--wrap-inner-pad: calc(7 * var(--space-lg));
 
-    @media (width < 640px) {
-        --wrap-inner-pad: calc(2 * var(--space-sm));
-    }
-}
+	/* where the wrap's left edge lands. the % resolves at each use site, and
+	   both of them measure against the body, so one definition serves */
+	--wrap-gutter: max(
+		var(--wrap-inner-pad),
+		(100% - var(--wrapper-width)) / 2
+	);
 
-body {
-    margin: 0;
-    padding: 0;
-
-    -webkit-font-smoothing: antialiased;
+	@media (width < 640px) {
+		--wrap-inner-pad: calc(1 * var(--space-sm));
+	}
 }
 
 #wrap {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-    box-sizing: border-box;
+	box-sizing: border-box;
 
-    max-width: 924px;
-    min-height: 100vh;
-    margin: 0 auto;
-    padding-inline: var(--wrap-inner-pad);
+	color: var(--color-fg);
 
-    color: #2a2a2a;
+	max-width: var(--wrapper-width);
+	min-height: 100vh;
 
-    font-family: Arial, serif;
-    font-size: var(--font-size-default);
+	margin-block: 0;
+	margin-inline: var(--wrap-gutter);
 
-    line-height: var(--line-height);
+	font-size: var(--font-size-default);
+	font-family: Arial, sans-serif;
+
+	line-height: var(--line-height);
 }
 
-a,
-a:visited {
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    text-decoration-color: var(--color-gray1);
-    color: inherit;
-}
+body {
+	margin: 0;
+	padding: 0;
 
-h1 a,
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a {
-    text-decoration-thickness: initial;
+	overflow-x: clip;
+
+	-webkit-font-smoothing: antialiased;
+
+	background-color: var(--color-page);
 }
 
 h1,
@@ -74,154 +69,143 @@ h3,
 h4,
 h5,
 h6 {
-    font-size: 1.1rem;
-}
-
-h1 {
-    font-size: 1.5rem;
+	line-height: 1.1em;
 }
 
 ol,
 ul {
-    list-style: none;
-
-    --list-nesting: var(--space-md);
-
-    padding-left: var(--list-nesting);
-
-    @media (width < 640px) {
-        padding-left: 0;
-    }
+	padding-left: var(--list-indent);
 }
 
 li {
-    position: relative;
-    display: block;
+	margin-bottom: var(--space-xs);
+}
 
-    margin-bottom: var(--space-sm);
+table {
+	border-collapse: collapse;
+	width: auto;
+
+	margin-block: var(--space-md);
+
+	@media (width < 640px) {
+		margin-block: var(--space-xl);
+	}
+}
+
+th,
+td {
+	text-align: left;
+	vertical-align: top;
+
+	padding-block: 0;
+	padding-right: var(--space-md);
+
+	@media (width < 640px) {
+		padding-right: var(--space-xs);
+	}
+}
+
+th {
+	font-weight: bold;
+
+	@media (width < 640px) {
+		padding-bottom: var(--space-xs);
+	}
+}
+
+@media (width < 640px) {
+	tr:last-child > :is(th, td) {
+		padding-bottom: var(--space-sm);
+	}
 }
 
 blockquote {
-    color: var(--color-gray2);
-
-    font-size: 0.8em;
-    font-family: monospace;
+	color: var(--color-gray1);
+	font-size: calc(0.9 * var(--font-size-default));
 }
 
 pre * {
-    margin: 0;
-    padding: 0;
-}
-
-header,
-footer {
-    padding-inline: var(--wrap-inner-pad);
-    padding-block: var(--space-md);
-    margin-inline: calc(-1 * var(--wrap-inner-pad));
+	margin: 0;
+	padding: 0;
 }
 
 header ul,
 footer ul {
-    padding: 0;
-    margin: 0;
+    /* used in calc() later so plain "0" doesn't work */
+	--list-indent: 0px;
 
-    display: flex;
-    gap: var(--space-xl);
-
-    @media (width < 640px) {
-        justify-content: center;
-        gap: calc(2 * var(--space-xl));
-    }
+	margin: 0;
 }
 
 header ul li,
 footer ul li {
-    padding: 0;
-    margin: 0;
-}
+	display: inline-block;
 
-header a,
-footer a {
-    text-decoration: none;
+	padding: 0;
+	margin: 0 var(--space-xl) 0 0;
+
+	@media (width < 640px) {
+		margin-right: var(--space-md);
+	}
 }
 
 main {
-    flex: 1;
+	flex: 1;
 }
 
 hr {
-    border: none;
+	border: none;
+	overflow: visible;
 }
 
 small {
-    color: var(--color-green-muted);
-    font-size: 0.7em;
-    font-family: monospace;
-    vertical-align: 2px;
+	display: block;
+
+	color: var(--color-green);
+
+	font-family: "Gaegu", sans-serif;
+	font-size: 16px;
 }
 
 small a {
-    text-decoration-color: var(--color-green-muted);
+	color: inherit !important;
+
+	text-decoration: underline;
+	text-decoration-color: inherit !important;
+	text-decoration-thickness: 0.07em;
 }
 
-/* index */
-
-main #globe {
-    color: var(--color-green);
+article h1 {
+	font-size: 180%;
+	line-height: 1.7;
 }
 
-/* articles */
-
-#post-date {
-    color: var(--color-gray1);
-    font-family: monospace;
-    font-size: 0.9em;
+article h2 {
+	font-size: 130%;
+	line-height: 1.4;
 }
 
 #date-updated {
-    display: none;
+	display: none;
 }
 
 /* footnotes */
 #f {
-    padding-block: calc(2 * var(--space-xl));
+	margin-top: var(--space-xl);
 }
 
 #f h1 {
-    color: var(--color-gray3);
+	color: var(--color-gray1);
+	font-size: 1.3rem;
 }
 
-#f ol {
-    --list-nesting: 0px;
-}
-
-#f ol li {
-    margin-block: var(--space-lg);
-
-    @media (width < 640px) {
-        /* the marker sits at the left edge, so this is its width plus
-           the gap before the text — "[10]" needs about 2.5rem of it */
-        padding-left: calc(var(--space-xl) + var(--space-sm));
-    }
-}
-
-#f ol li::before {
-    content: "[" counter(list-item) "]";
-    top: calc(-0.6 * var(--space-xs));
-
-    font-size: 0.9em;
-    font-weight: bolder;
-
-    color: var(--color-green-muted);
-
-    @media (width < 640px) {
-        margin-left: 0.5ch;
-    }
+#f ol li:not(:last-child) {
+	margin-bottom: var(--space-lg);
 }
 
 .fr {
-    font-family: monospace;
-    font-weight: bolder;
+	font-family: monospace;
+	font-weight: bolder;
 
-    color: var(--color-green-muted);
+	color: var(--color-green);
 }
