@@ -1,0 +1,397 @@
+/* Generated from html.scss -- do not edit. */
+
+// The page as a picture of its own markup.
+
+@use "sass:list";
+
+$headings: h1, h2, h3, h4, h5, h6;
+$block:    list.join((header, footer, article, section, p, ul, ol, blockquote, pre), $headings);
+
+// an edge reads through whatever it does not draw. <li> opens but never closes
+$opens:  list.append($block, li);
+$closes: $block;
+
+$open-parents:  list.append($block, li);
+$close-parents: $block;
+$open-mid:      list.append($block, li);
+$close-mid:     $block;
+
+$tagged: list.join($opens, (hr, table, tr));
+
+@function edge($side)  { @if $side == open { @return ":first-child"; } @return ":last-child"; }
+@function drawn($side) { @if $side == open { @return $opens; }          @return $closes; }
+@function mid($side)   { @if $side == open { @return $open-mid; }       @return $close-mid; }
+
+@function via($side) { @return ":not(:is(#{drawn($side)}))#{edge($side)}"; }
+
+@function head($side) {
+    $e: edge($side);
+    $p: $close-parents;
+    @if $side == open { $p: $open-parents; }
+
+    @return ":is(#{$block}):not(#{$e}:is(" +
+            ":is(#{$p}) > *, " +
+            ":is(#{$p}) > #{via($side)} > *))";
+}
+
+@function carrier($side) {
+    $e: edge($side);
+    $h: head($side);
+
+    @return ":is(#{drawn($side)})#{$e}:is(#{$h} > *, #{$h} > #{via($side)} > *)";
+}
+
+@function within($side) {
+    $e: edge($side);
+    $v: via($side);
+    $m: ":is(#{mid($side)})#{$e}";
+    $x: ":is(#{$block})#{$e}";
+
+    @return "& > #{$m} > #{$x}, " +
+            "& > #{$m} > #{$v} > #{$x}, " +
+            "& > #{$v} > #{$m} > #{$x}, " +
+            "& > #{$v} > #{$m} > #{$v} > #{$x}";
+}
+
+// registered so the ink can interpolate; a plain custom property is a string
+@property --tag-ink {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: transparent;
+}
+
+:root {
+    --tag-font: "Gaegu", sans-serif;
+    --tag-size: 1.2rem;
+    --tag-line-height: 1;
+
+    // --tag-font: monospace;
+    // --tag-size: 0.9rem;
+
+    // measured: the calc gives 19.2px and drifts off the dot grid
+    --tag-line: 19.8px;
+
+    --tag-offset: var(--space-lg);
+
+    --tag-pull: 0px;
+    --tag-pull-outer: 0px;
+
+    // --tag-pull is not folded in: a var() inside a custom property resolves
+    // where it is declared, so the root's own 0 would be frozen into it
+    --tag-align: calc(-100% - var(--tag-offset));
+
+    --prose-line: calc(var(--line-height) * var(--font-size-default));
+
+    --tag-ink: var(--color-tag);
+
+    --layer-fade: 900ms;
+
+    transition-property: --tag-ink;
+    transition-duration: var(--layer-fade);
+    transition-timing-function: ease-in-out;
+
+    @media (width < 640px) {
+        --tag-size: 1.4rem;
+        --tag-align: 50px;
+        --tag-ink: transparent;
+    }
+}
+
+// asked from :root, not #wrap -- the dot grid is painted on the body
+@media (width >= 640px) {
+    :root:has(#wrap:hover) {
+        --tag-ink: transparent;
+
+        --layer-fade: 400ms;
+        transition-timing-function: ease-out;
+    }
+}
+
+:is(#{$tagged})::before,
+:is(#{$tagged})::after,
+#wrap::before,
+#wrap::after {
+    color: var(--tag-ink);
+    font-family: var(--tag-font);
+    font-weight: lighter;
+    font-size: var(--tag-size);
+    line-height: var(--tag-line-height);
+    white-space: pre;
+}
+
+:is(#{$block})::before,
+:is(#{$block})::after {
+    display: block;
+
+    width: max-content;
+    transform: translateX(calc(var(--tag-align) - var(--tag-pull)));
+}
+
+@each $t in $block {
+    #{$t} {
+        &::before { content: var(--tag-lead, "") "<#{$t}>" var(--tag-join, ""); }
+        &::after  { content: var(--tag-lead, "") "</#{$t}>" var(--tag-join, ""); }
+    }
+}
+
+// the blank line the frame opens and closes on; the closing one is held by the
+// element, since its tag can be taken into a run and go
+header::before { padding-top: var(--tag-line); }
+footer         { padding-bottom: var(--tag-line); }
+
+// A nesting shares a row -- <ul><li><p>, </blockquote></ul></p> -- but never a
+// sibling seam. The run is carried by its middle tag, which names itself and
+// takes the tag beyond into --tag-lead and the one within into --tag-join;
+// both then stand down. The middle is the child of a head, a block that is not
+// itself such a child, which caps a run at three: a selector reaches one step.
+// Rows read outermost first, so the picture is read, not parsed.
+@media (width >= 640px) {
+
+    #{carrier(open)} {
+        // far before near, so the nearer parent wins on source order
+        @each $t in list.append($block, li) {
+            &:is(#{$t} > * > *)::before { --tag-lead: "<#{$t}>"; }
+        }
+        @each $t in list.append($block, li) {
+            &:is(#{$t} > *)::before { --tag-lead: "<#{$t}>"; }
+        }
+
+        @each $t in $block {
+            &:has(> #{via(open)} > #{$t}:first-child)::before { --tag-join: "<#{$t}>"; }
+            &:has(> #{$t}:first-child)::before                { --tag-join: "<#{$t}>"; }
+        }
+    }
+
+    #{head(open)} {
+        &:has(
+            > :is(#{$opens}):first-child,
+            > #{via(open)} > :is(#{$opens}):first-child
+        )::before {
+            content: none;
+        }
+
+        #{within(open)} {
+            padding-top: 0;
+
+            &::before { content: none; }
+        }
+    }
+
+    // <li> and the tag of whatever the item opens on are on one row whatever
+    // else happens, so they are always a run
+    @each $t in $block {
+        li:has(> #{$t}:first-child)::before { --tag-join: "<#{$t}>"; }
+    }
+
+    li > :is(#{$block}):first-child {
+        padding-top: 0;
+
+        &::before { content: none; }
+    }
+
+    #{carrier(close)} {
+        @each $t in $block {
+            &:has(> #{via(close)} > #{$t}:last-child)::after { --tag-join: "</#{$t}>"; }
+            &:has(> #{$t}:last-child)::after                 { --tag-join: "</#{$t}>"; }
+        }
+
+        @each $t in $block {
+            &:is(#{$t} > * > *)::after { --tag-lead: "</#{$t}>"; }
+        }
+        @each $t in $block {
+            &:is(#{$t} > *)::after { --tag-lead: "</#{$t}>"; }
+        }
+    }
+
+    #{head(close)} {
+        &:has(
+            > :is(#{$closes}):last-child,
+            > #{via(close)} > :is(#{$closes}):last-child
+        )::after {
+            content: none;
+        }
+
+        #{within(close)} {
+            &::after { content: none; }
+        }
+    }
+}
+
+#wrap {
+    &::before,
+    &::after {
+        color: var(--color-tag);
+
+        display: block;
+
+        width: 100vw;
+
+        margin-left: calc(-1 * var(--wrap-inner-pad));
+        padding-right: calc(100vw - var(--wrap-inner-pad) + var(--tag-offset));
+
+        text-align: right;
+
+        // nothing to spill into on a phone: the box goes back to the wrap's
+        // own width and the tags start on the column the prose does
+        @media (width < 640px) {
+            width: auto;
+
+            margin-left: 0;
+            padding-right: 0;
+
+            text-align: left;
+        }
+    }
+
+    &::before {
+        content: "<!DOCTYPE html>\A<html>\A<body>\A";
+        padding-bottom: 1ch;
+    }
+
+    &::after {
+        content: "</body>\A</html>";
+        padding-top: 1ch;
+    }
+}
+
+// a property cannot be written in terms of itself, so two take turns
+@media (width >= 640px) {
+    ul,
+    ol {
+        --tag-pull: calc(var(--tag-pull-outer) + var(--list-indent));
+    }
+
+    li {
+        --tag-pull-outer: var(--tag-pull);
+    }
+}
+
+// out of flow, or the tag becomes the item's first line box and takes the marker
+li {
+    position: relative;
+
+    &::before {
+        content: var(--tag-lead, "") "<li>" var(--tag-join, "");
+
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: max-content;
+
+        transform: translateX(calc(var(--tag-align) - var(--tag-pull)));
+
+        // read against the item's first line, so it takes that line's height
+        // rather than the tag's own -- same reason as tr::before
+        line-height: var(--prose-line);
+    }
+}
+
+// same again one level down; left and right stay auto so the static position
+// keeps a nested list's padding in the figure
+li > :is(p, blockquote, pre, ul, ol, #{$headings}):first-child {
+    position: relative;
+    padding-top: var(--tag-line);
+
+    &::before {
+        position: absolute;
+        top: 0;
+    }
+}
+
+// or table fixup opens a phantom first column on every row
+table,
+tr,
+hr {
+    position: relative;
+}
+
+:is(table, tr, hr)::before,
+table::after {
+    position: absolute;
+    width: max-content;
+    right: calc(100% + var(--tag-offset) + var(--tag-pull));
+}
+
+table {
+    &::before {
+        content: "<table>";
+        top: calc(-1 * var(--tag-line));
+    }
+
+    &::after {
+        content: "</table>";
+        bottom: calc(-1 * var(--tag-line));
+    }
+}
+
+tr::before {
+    content: "<tr>";
+    top: 0;
+
+    line-height: var(--prose-line);
+}
+
+hr::before {
+    content: "<hr />";
+    top: 0;
+}
+
+// `content` cannot repeat: written past the widest column, clipped back to it
+hr::after {
+    content: "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
+             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
+             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
+             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
+             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
+             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
+             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
+             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  ";
+
+    // content, not markup: it stays when the layer withdraws
+    color: var(--color-tag);
+
+    display: block;
+
+    overflow: hidden;
+    letter-spacing: -0.12em;
+}
+
+// read as content: the delimiters take small's colour, so the layer withdraws
+// around the note rather than through it
+small {
+    &::before { content: "<!-- "; }
+    &::after  { content: " -->"; }
+}
+
+:is(header, footer) ul li {
+    padding-top: 0;
+
+    &::before { content: none; }
+}
+
+// no gutter on a phone: all the layer does here is hold the vertical rhythm
+@media (width < 640px) {
+    section {
+        &::before,
+        &::after { content: ""; }
+    }
+
+    p,
+    :is(#{$headings}) {
+        &::before,
+        &::after {
+            content: "";
+            height: var(--tag-line);
+        }
+    }
+
+    li {
+        padding-top: 0;
+    }
+
+    :is(li, table, tr)::before,
+    :is(li, table, tr)::after,
+    hr::before {
+        content: none;
+    }
+}
