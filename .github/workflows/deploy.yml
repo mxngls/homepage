@@ -26,7 +26,7 @@ jobs:
       - name: Deploy via Git push
         run: |
           git remote add nfsn ssh://${{ secrets.NFSN_USER }}@${{ secrets.NFSN_HOST }}/home/private/repo.git
-          git push nfsn main
+          git push --force nfsn main
 
       - name: Verify deployment
         run: |
