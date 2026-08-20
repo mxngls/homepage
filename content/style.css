@@ -44,8 +44,7 @@
 	max-width: var(--wrapper-width);
 	min-height: 100vh;
 
-	margin-block: 0;
-	margin-inline: var(--wrap-gutter);
+	margin: 0 var(--wrap-gutter);
 
 	font-size: var(--font-size-default);
 	font-family: Arial, sans-serif;
