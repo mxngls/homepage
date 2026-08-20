@@ -1,149 +1,99 @@
-// Custom Web Components
-const SITE_FOOTNOTE_TAGNAME = "site-footnote";
+const SITE_TOC_TAGNAME = "site-toc";
+const SITE_TOC_MIN_HEADINGS = 5;
+const SITE_TOC_MIN_DEPTH = 1;
 
-class SiteFootnote extends HTMLElement {
-	static footnoteCounter = 0;
+class SiteToc extends HTMLElement {
+    connectedCallback() {
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", () => this.processContent(), {
+                once: true,
+            });
+        } else {
+            this.processContent();
+        }
+    }
 
-	constructor() {
-		super();
+    processContent() {
+        const container =
+            document.getElementById("post-body") ?? document.getElementsByTagName("main").item(0);
 
-		this.footnoteNumber = ++SiteFootnote.footnoteCounter;
-	}
+        if (!container) {
+            this.remove();
+            return;
+        }
 
-	connectedCallback() {
-		if (this.innerHTML.trim()) {
-			this.processContent();
-		} else {
-			// Watch for content changes
-			const observer = new MutationObserver(() => {
-				if (this.innerHTML.trim()) {
-					observer.disconnect();
-					this.processContent();
-				}
-			});
-			observer.observe(this, { childList: true, subtree: true });
-		}
-	}
+        const headings = container.querySelectorAll("h2, h3, h4, h5");
+        if (headings.length < SITE_TOC_MIN_HEADINGS) {
+            this.remove();
+            return;
+        }
 
-	processContent() {
-		const contentContainer = document.getElementsByTagName("main").item(0);
-		if (!contentContainer) {
-			throw new Error(
-				`${SITE_FOOTNOTE_TAGNAME}: Content container to append footnotes to not found`
-			);
-		}
+        const levels = new Set();
+        for (const h of headings) {
+            levels.add(h.tagName);
+        }
 
-		const footnoteContainer = document.getElementById("footnotes");
-		if (!footnoteContainer || !this.footnoteContainer) {
-			this.footnoteContainer = this.initContainer(contentContainer, footnoteContainer);
-		}
-		const content = this.innerHTML.trim();
+        if (levels.size < SITE_TOC_MIN_DEPTH) {
+            this.remove();
+            return;
+        }
 
-		if (!content) {
-			console.warn(`${SITE_FOOTNOTE_TAGNAME}: Empty footnote content, skipping`);
-			this.remove();
-			return;
-		}
+        this.buildToc(headings);
+    }
 
-		this.addFootnote(content);
-		this.addFootnoteRef();
-	}
+    buildToc(headings) {
+        const nav = document.createElement("nav");
+        const ol = document.createElement("ol");
 
-	addFootnoteRef() {
-		const a = document.createElement("a");
+        nav.id = "toc";
+        nav.appendChild(ol);
 
-		a.classList.add("footnote-reference");
-		a.href = `#footnote-${this.footnoteNumber}`;
-		a.id = `footnote-reference-${this.footnoteNumber}`;
-		a.innerText = this.footnoteNumber;
+        let stack = [ol];
 
-		const sup = document.createElement("sup");
-		sup.appendChild(a);
+        for (const h of headings) {
+            const level = parseInt(h.tagName[1], 10) - 2; // Starting from h2
 
-		const prev = this.previousSibling;
-		if (prev?.nodeType === Node.ELEMENT_NODE && prev.tagName !== "SUP") {
-			prev.appendChild(sup);
-			this.remove();
-		} else {
-			this.replaceWith(sup);
-		}
-	}
+            // Generate artifical references if necessary
+            if (!h.id) {
+                h.id = h.textContent
+                    .trim()
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/(^-|-$)/g, "");
+            }
 
-	addFootnote(content) {
-		const li = document.createElement("li");
-		const p = document.createElement("p");
-		const a = document.createElement("a");
+            // Go deeper: create nested <ol>s
+            while (stack.length - 1 < level) {
+                const nested = document.createElement("ol");
+                const parent = stack[stack.length - 1];
+                const lastLi = parent.lastElementChild;
 
-		li.id = `footnote-${this.footnoteNumber}`;
-		p.innerHTML = content;
-		a.classList.add("footnote-backlink");
-		a.href = `#footnote-reference-${this.footnoteNumber}`;
-		a.innerText = "↩\uFE0E";
+                if (lastLi) {
+                    lastLi.appendChild(nested);
+                } else {
+                    parent.appendChild(nested);
+                }
 
-		li.appendChild(p);
-		p.appendChild(a);
+                stack.push(nested);
+            }
 
-		const ol = this.footnoteContainer.getElementsByTagName("ol").item(0);
-		if (!ol) {
-			throw new Error(`${SITE_FOOTNOTE_TAGNAME}: Footnote list not found`);
-		}
+            // Go shallower: pop back up
+            while (stack.length - 1 > level) {
+                stack.pop();
+            }
 
-		ol.appendChild(li);
-	}
+            const li = document.createElement("li");
+            const a = document.createElement("a");
 
-	initContainer(contentContainer, footnoteContainer) {
-		if (!footnoteContainer) {
-			footnoteContainer = document.createElement("div");
-			footnoteContainer.id = "footnotes";
-			footnoteContainer.appendChild(document.createElement("ol"));
+            a.href = `#${h.id}`;
+            a.textContent = h.textContent;
 
-			const hr = document.createElement("hr");
+            li.appendChild(a);
+            stack[stack.length - 1].appendChild(li);
+        }
 
-			contentContainer.appendChild(hr);
-			contentContainer.appendChild(footnoteContainer);
-		}
-
-		return footnoteContainer;
-	}
+        this.replaceWith(nav);
+    }
 }
 
-customElements.define(SITE_FOOTNOTE_TAGNAME, SiteFootnote);
-
-// Other
-function groupPostsByYear(postListContainer) {
-	const list = postListContainer.querySelectorAll(":scope > ul")[0];
-
-	const groups = new Map();
-	const frag = document.createDocumentFragment();
-
-	list.querySelectorAll(":scope > li").forEach((li) => {
-		const ts = Number(li.dataset.postCreated);
-		const key = ts > 0 ? new Date(ts * 1000).getFullYear() : "Drafts";
-		if (!groups.has(key)) groups.set(key, []);
-		groups.get(key).push(li);
-	});
-
-	groups.entries().forEach(([year, items]) => {
-		console.log(items);
-		const section = document.createElement("section");
-		section.className = "post-list-year-group";
-
-		const heading = document.createElement("h2");
-		heading.id = `year-${year}`.toLowerCase();
-		heading.textContent = year;
-		heading.style.marginBottom = "1rem";
-
-		const ul = document.createElement("ul");
-		ul.append(...items);
-
-		section.append(heading, ul);
-		frag.append(section);
-	});
-
-	list.remove();
-	postListContainer.append(frag);
-}
-
-const postListContainer = document.getElementById("post-list");
-if (postListContainer) groupPostsByYear(postListContainer);
-
+customElements.define(SITE_TOC_TAGNAME, SiteToc);
