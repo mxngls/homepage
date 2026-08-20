@@ -164,7 +164,7 @@ time {
 	white-space: nowrap;
 }
 
-small {
+.comment {
 	display: block;
 
 	color: var(--color-green);
@@ -173,7 +173,7 @@ small {
 	font-size: 16px;
 }
 
-small a {
+.comment a {
 	color: inherit !important;
 
 	text-decoration: underline;
