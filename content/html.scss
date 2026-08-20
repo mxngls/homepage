@@ -335,23 +335,17 @@ hr::before {
     top: 0;
 }
 
-// `content` cannot repeat: written past the widest column, clipped back to it
+// `content` cannot repeat, so the string is the length. it opens and closes on
+// a dash, or the trailing space carries the centre off to the left
 hr::after {
-    content: "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
-             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
-             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
-             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
-             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
-             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
-             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  "
-             "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  ";
+    content: "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -";
 
     // content, not markup: it stays when the layer withdraws
-    color: var(--color-tag);
+    color: var(--color-gray2);
 
     display: block;
 
-    overflow: hidden;
+    text-align: left;
     letter-spacing: -0.12em;
 }
 
