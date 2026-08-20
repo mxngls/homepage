@@ -9,7 +9,6 @@ args=(
 	# static site generator specific
 	_SITE_EXT_SOURCE_DIR="../$source_dir"
 	_SITE_EXT_TARGET_DIR="../$target_dir"
-	_SITE_EXT_BLOG_INDEX='index.htm'
 	_SITE_EXT_GIT_DIR='../.git'
 
 	# atom feed specific
