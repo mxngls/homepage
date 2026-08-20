@@ -62,7 +62,7 @@ $tagged: list.join($opens, (hr, table, tr));
 
 :root {
     --tag-font: "Gaegu", sans-serif;
-    --tag-size: 1.2rem;
+    --tag-size: 1.1rem;
     --tag-line-height: 1;
 
     // --tag-font: monospace;
@@ -134,86 +134,88 @@ $tagged: list.join($opens, (hr, table, tr));
     }
 }
 
-// the blank line the frame opens and closes on; the closing one is held by the
-// element, since its tag can be taken into a run and go
+// the closing line is held by the element, since its tag can be taken into a run
 header::before { padding-top: var(--tag-line); }
 footer         { padding-bottom: var(--tag-line); }
 
-// A nesting shares a row -- <ul><li><p>, </blockquote></ul></p> -- but never a
-// sibling seam. The run is carried by its middle tag, which names itself and
-// takes the tag beyond into --tag-lead and the one within into --tag-join;
-// both then stand down. The middle is the child of a head, a block that is not
-// itself such a child, which caps a run at three: a selector reaches one step.
-// Rows read outermost first, so the picture is read, not parsed.
-@media (width >= 640px) {
-
-    #{carrier(open)} {
-        // far before near, so the nearer parent wins on source order
-        @each $t in list.append($block, li) {
-            &:is(#{$t} > * > *)::before { --tag-lead: "<#{$t}>"; }
-        }
-        @each $t in list.append($block, li) {
-            &:is(#{$t} > *)::before { --tag-lead: "<#{$t}>"; }
-        }
-
-        @each $t in $block {
-            &:has(> #{via(open)} > #{$t}:first-child)::before { --tag-join: "<#{$t}>"; }
-            &:has(> #{$t}:first-child)::before                { --tag-join: "<#{$t}>"; }
-        }
+// a run is carried by its middle tag, the child of a head, which caps it at
+// three: a selector reaches one step. rows run in document order. unread on a
+// phone, but the boxes still hold the lines
+#{carrier(open)} {
+    // far before near, so source order names the nearer parent. :not(li) on
+    // every rule alike, or the loops lose the equal specificity that rests on
+    @each $t in list.append($block, li) {
+        &:not(li):is(#{$t} > * > *)::before { --tag-lead: "<#{$t}>"; }
+    }
+    @each $t in list.append($block, li) {
+        &:not(li):is(#{$t} > *)::before { --tag-lead: "<#{$t}>"; }
     }
 
-    #{head(open)} {
-        &:has(
-            > :is(#{$opens}):first-child,
-            > #{via(open)} > :is(#{$opens}):first-child
-        )::before {
-            content: none;
-        }
-
-        #{within(open)} {
-            padding-top: 0;
-
-            &::before { content: none; }
-        }
-    }
-
-    // <li> and the tag of whatever the item opens on are on one row whatever
-    // else happens, so they are always a run
     @each $t in $block {
-        li:has(> #{$t}:first-child)::before { --tag-join: "<#{$t}>"; }
+        &:has(> #{via(open)} > #{$t}:first-child)::before { --tag-join: "<#{$t}>"; }
+        &:has(> #{$t}:first-child)::before                { --tag-join: "<#{$t}>"; }
+    }
+}
+
+#{head(open)} {
+    &:has(
+        > :is(#{$block}):first-child,
+        > #{via(open)} > :is(#{$block}):first-child
+    )::before {
+        content: none;
     }
 
-    li > :is(#{$block}):first-child {
+    #{within(open)} {
         padding-top: 0;
 
         &::before { content: none; }
     }
+}
 
-    #{carrier(close)} {
-        @each $t in $block {
-            &:has(> #{via(close)} > #{$t}:last-child)::after { --tag-join: "</#{$t}>"; }
-            &:has(> #{$t}:last-child)::after                 { --tag-join: "</#{$t}>"; }
-        }
+@each $t in $block {
+    li:has(> #{$t}:first-child)::before { --tag-join: "<#{$t}>"; }
+}
 
-        @each $t in $block {
-            &:is(#{$t} > * > *)::after { --tag-lead: "</#{$t}>"; }
-        }
-        @each $t in $block {
-            &:is(#{$t} > *)::after { --tag-lead: "</#{$t}>"; }
-        }
+li > :is(#{$block}):first-child {
+    padding-top: 0;
+
+    &::before { content: none; }
+}
+
+#{carrier(close)} {
+    @each $t in $block {
+        &:has(> #{via(close)} > #{$t}:last-child)::after { --tag-lead: "</#{$t}>"; }
+        &:has(> #{$t}:last-child)::after                 { --tag-lead: "</#{$t}>"; }
     }
 
-    #{head(close)} {
-        &:has(
-            > :is(#{$closes}):last-child,
-            > #{via(close)} > :is(#{$closes}):last-child
-        )::after {
-            content: none;
-        }
+    // far before near, so the nearer parent wins on source order
+    @each $t in $block {
+        &:is(#{$t} > * > *)::after { --tag-join: "</#{$t}>"; }
+    }
+    @each $t in $block {
+        &:is(#{$t} > *)::after { --tag-join: "</#{$t}>"; }
+    }
+}
 
-        #{within(close)} {
-            &::after { content: none; }
-        }
+// a seam. only middle siblings meet here, so nothing a nesting run claims
+@each $t in $block {
+    #{$t} + :is(#{$block})::before { --tag-join: "</#{$t}>"; }
+}
+
+:is(#{$block}):has(+ :is(#{$block}))::after {
+    content: none;
+}
+
+#{head(close)} {
+    &:has(
+        > :is(#{$closes}):last-child,
+        > #{via(close)} > :is(#{$closes}):last-child
+    )::after {
+        content: none;
+    }
+
+    #{within(close)} {
+        &::after { content: none; }
     }
 }
 
@@ -231,8 +233,7 @@ footer         { padding-bottom: var(--tag-line); }
 
         text-align: right;
 
-        // nothing to spill into on a phone: the box goes back to the wrap's
-        // own width and the tags start on the column the prose does
+        // nothing to spill into on a phone
         @media (width < 640px) {
             width: auto;
 
@@ -266,7 +267,7 @@ footer         { padding-bottom: var(--tag-line); }
     }
 }
 
-// out of flow, or the tag becomes the item's first line box and takes the marker
+// out of flow, or the tag becomes the first line box and takes the marker
 li {
     position: relative;
 
@@ -281,13 +282,11 @@ li {
         transform: translateX(calc(var(--tag-align) - var(--tag-pull)));
 
         // read against the item's first line, so it takes that line's height
-        // rather than the tag's own -- same reason as tr::before
         line-height: var(--prose-line);
     }
 }
 
-// same again one level down; left and right stay auto so the static position
-// keeps a nested list's padding in the figure
+// left and right stay auto, so the static position keeps a nested list's padding
 li > :is(p, blockquote, pre, ul, ol, #{$headings}):first-child {
     position: relative;
     padding-top: var(--tag-line);
@@ -356,8 +355,6 @@ hr::after {
     letter-spacing: -0.12em;
 }
 
-// read as content: the delimiters take small's colour, so the layer withdraws
-// around the note rather than through it
 small {
     &::before { content: "<!-- "; }
     &::after  { content: " -->"; }
