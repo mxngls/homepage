@@ -184,22 +184,22 @@ li > :is(#{$block}):first-child {
 
 #{carrier(close)} {
     @each $t in $block {
-        &:has(> #{via(close)} > #{$t}:last-child)::after { --tag-lead: "</#{$t}>"; }
-        &:has(> #{$t}:last-child)::after                 { --tag-lead: "</#{$t}>"; }
+        &:has(> #{via(close)} > #{$t}:last-child)::after { --tag-join: "</#{$t}>"; }
+        &:has(> #{$t}:last-child)::after                 { --tag-join: "</#{$t}>"; }
     }
 
     // far before near, so the nearer parent wins on source order
     @each $t in $block {
-        &:is(#{$t} > * > *)::after { --tag-join: "</#{$t}>"; }
+        &:is(#{$t} > * > *)::after { --tag-lead: "</#{$t}>"; }
     }
     @each $t in $block {
-        &:is(#{$t} > *)::after { --tag-join: "</#{$t}>"; }
+        &:is(#{$t} > *)::after { --tag-lead: "</#{$t}>"; }
     }
 }
 
 // a seam. only middle siblings meet here, so nothing a nesting run claims
 @each $t in $block {
-    #{$t} + :is(#{$block})::before { --tag-join: "</#{$t}>"; }
+    #{$t} + :is(#{$block})::before { --tag-lead: "</#{$t}>"; }
 }
 
 :is(#{$block}):has(+ :is(#{$block}))::after {
