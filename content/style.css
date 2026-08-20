@@ -5,15 +5,16 @@
 	--space-lg: 1.5rem;
 	--space-xl: 2rem;
 
-	--color-fg: oklch(31% 0% 11deg);
-	--color-gray1: #555555;
+	--color-fg: #000;
+	--color-bg: #fff;
+
+	--color-gray1: #555;
+	--color-gray2: #999;
+
 	--color-green: oklch(61% 30% 125deg);
-
-	--color-page: oklch(100% 1% 77deg);
-
 	--color-tag: oklch(58% 50% 25deg);
 
-	--font-size-default: 1.1rem;
+	--font-size-default: 1rem;
 	--line-height: 1.5;
 	--list-indent: 2ch;
 
@@ -60,7 +61,7 @@ body {
 
 	-webkit-font-smoothing: antialiased;
 
-	background-color: var(--color-page);
+	background-color: var(--color-bg);
 }
 
 h1,
@@ -101,7 +102,7 @@ td {
 	padding-right: var(--space-md);
 
 	@media (width < 640px) {
-		padding-right: var(--space-xs);
+		padding-right: var(--space-sm);
 	}
 }
 
@@ -131,7 +132,7 @@ pre * {
 
 header ul,
 footer ul {
-    /* used in calc() later so plain "0" doesn't work */
+	/* used in calc() later so plain "0" doesn't work */
 	--list-indent: 0px;
 
 	margin: 0;
@@ -156,6 +157,12 @@ main {
 hr {
 	border: none;
 	overflow: visible;
+	margin-block: calc(var(--tag-offset) - var(--space-md));
+}
+
+time {
+	word-break: keep-all;
+	white-space: nowrap;
 }
 
 small {
@@ -175,6 +182,12 @@ small a {
 	text-decoration-thickness: 0.07em;
 }
 
+/* posts */
+
+.post article {
+	font-family: serif !important;
+}
+
 article h1 {
 	font-size: 180%;
 	line-height: 1.7;
@@ -185,18 +198,17 @@ article h2 {
 	line-height: 1.4;
 }
 
+#date-created {
+	color: var(--color-gray2);
+}
+
 #date-updated {
 	display: none;
 }
 
 /* footnotes */
 #f {
-	margin-top: var(--space-xl);
-}
-
-#f h1 {
-	color: var(--color-gray1);
-	font-size: 1.3rem;
+	margin-top: var(--space-md);
 }
 
 #f ol li:not(:last-child) {
